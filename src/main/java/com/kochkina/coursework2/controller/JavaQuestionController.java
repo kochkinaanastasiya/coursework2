@@ -1,7 +1,5 @@
 package com.kochkina.coursework2.controller;
 
-import com.kochkina.coursework2.exception.QuestionAlreadyExistsException;
-import com.kochkina.coursework2.exception.QuestionNotFoundException;
 import com.kochkina.coursework2.model.QuestionForExam;
 import com.kochkina.coursework2.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
@@ -17,18 +15,18 @@ public class JavaQuestionController {
         this.questionService = questionService;
     }
 
-    @PostMapping("/add")
+    @GetMapping("/add")
         public QuestionForExam addQuestion(
                 @RequestParam String question,
-                @RequestParam String answer) throws QuestionAlreadyExistsException {
+                @RequestParam String answer) {
         System.out.println("question" + question + "answer" + answer);
             return questionService.add(question, answer);
         }
 
-        @DeleteMapping("/remove")
+        @GetMapping("/remove")
         public QuestionForExam removeQuestion(
                 @RequestParam String question,
-                @RequestParam String answer) throws QuestionNotFoundException {
+                @RequestParam String answer) {
             return questionService.remove(question, answer);
         }
 

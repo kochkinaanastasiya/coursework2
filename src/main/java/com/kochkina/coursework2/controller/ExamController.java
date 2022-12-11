@@ -1,6 +1,5 @@
 package com.kochkina.coursework2.controller;
 
-import com.kochkina.coursework2.exception.NotFoundEnoughQuestionsException;
 import com.kochkina.coursework2.model.QuestionForExam;
 import com.kochkina.coursework2.service.ExaminerService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,7 @@ public class ExamController {
     }
 
     @GetMapping("/get/{amount}")
-    public Collection<QuestionForExam> getQuestions(@PathVariable int amount) throws NotFoundEnoughQuestionsException {
+    public Collection<QuestionForExam> getQuestions(@PathVariable int amount) {
         return examinerService.getQuestions(amount);
     }
 }

@@ -18,14 +18,14 @@ public class JavaQuestionService implements QuestionService {
     private final List<QuestionForExam> questionForExamList = new ArrayList<>();
 
     @Override
-    public QuestionForExam add(String question, String answer) throws QuestionAlreadyExistsException {
+    public QuestionForExam add(String question, String answer) {
         QuestionForExam questionForExam = new QuestionForExam(question, answer);
         System.out.println("question" + questionForExam.getQuestion() + "answer" + questionForExam.getAnswer());
         return add(questionForExam);
     }
 
     @Override
-    public QuestionForExam add(QuestionForExam questionForExam) throws QuestionAlreadyExistsException{
+    public QuestionForExam add(QuestionForExam questionForExam) {
         if(questionForExamList.contains(questionForExam)){
             throw new QuestionAlreadyExistsException();
         } else {
@@ -36,13 +36,13 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public QuestionForExam remove (String question, String answer) throws QuestionNotFoundException {
+    public QuestionForExam remove (String question, String answer) {
         QuestionForExam questionForExam = new QuestionForExam(question, answer);
         return remove(questionForExam);
     }
 
     @Override
-    public QuestionForExam remove (QuestionForExam questionForExam) throws QuestionNotFoundException {
+    public QuestionForExam remove (QuestionForExam questionForExam) {
         if(!questionForExamList.contains(questionForExam)){
             throw new QuestionNotFoundException();
         } else {
@@ -53,7 +53,7 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Collection<QuestionForExam> getAll(){
-        return questionForExamList;
+        return new ArrayList<>(questionForExamList);
     }
 
     @Override
