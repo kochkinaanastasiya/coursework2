@@ -21,12 +21,14 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Override
     public Collection<QuestionForExam> getQuestions(int amount) {
-        Collection<QuestionForExam> questions = questionService.getAll();
+        if(amount < 1){
+            throw new UnsupportedOperationException("Not valid amount value. Should be more than 1");
+        }
         if(questionService.getAll().size()<amount){
             throw new NotFoundEnoughQuestionsException();
         }
         Set<QuestionForExam> result = new HashSet<>();
-        while (questions.size() < amount){
+        while (result.size() < amount){
             result.add(questionService.getRandomQuestion());
         }
         return result;

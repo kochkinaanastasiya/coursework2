@@ -1,5 +1,6 @@
 package com.kochkina.coursework2.service.impl;
 
+
 import com.kochkina.coursework2.exception.NotFoundEnoughQuestionsException;
 import com.kochkina.coursework2.model.QuestionForExam;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ExaminerServiceImplTest {
 
-    @Mock
+    @Mock(strictness = Mock.Strictness.LENIENT)
     private JavaQuestionService javaQuestionService;
 
     @InjectMocks
@@ -44,9 +45,15 @@ public class ExaminerServiceImplTest {
     }
 
     @Test
-    public void getQuestionsNegativeTest() {
-        assertThatExceptionOfType(NotFoundEnoughQuestionsException.class)
+    public void getQuestionsNegativeTest1() {
+        assertThatExceptionOfType(UnsupportedOperationException.class)
                 .isThrownBy(()-> examinerService.getQuestions(-1));
+    }
+
+    @Test
+    public void getQuestionsNegativeTest2() {
+        assertThatExceptionOfType(NotFoundEnoughQuestionsException.class)
+                .isThrownBy(()-> examinerService.getQuestions(10));
     }
 
     @Test
@@ -58,9 +65,9 @@ public class ExaminerServiceImplTest {
                 new QuestionForExam("Вопрос 3 ", "Ответ 3")
         );
 
-        assertThat(examinerService.getQuestions(1))
-                .hasSize(1)
-                .containsExactlyInAnyOrder(
+        assertThat(examinerService.getQuestions(2))
+                .hasSize(2)
+                .containsAnyOf(
                         new QuestionForExam("Вопрос 1 ", "Ответ 1"),
                         new QuestionForExam("Вопрос 2 ", "Ответ 2"),
                         new QuestionForExam("Вопрос 3 ", "Ответ 3")
